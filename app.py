@@ -1,3 +1,5 @@
+import os
+
 from flask import Flask
 from flask_restful import Api
 from flask_jwt import JWT
@@ -13,7 +15,7 @@ from db import db #import the db which is sqlalchemy object
 ###############################################################################
 app = Flask(__name__)
 app.secret_key = "ravish"
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data.db' #this provides the path of the db to SQLAlchemy
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', 'sqlite:///data.db') #this provides the path of the db to SQLAlchemy
 print (app.config['SQLALCHEMY_DATABASE_URI'])
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False #This will help in consuming less resources as flask alchemy tries to track all changes
 api = Api(app)
